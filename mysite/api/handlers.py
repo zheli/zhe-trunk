@@ -1,4 +1,5 @@
 from piston.handler import BaseHandler
+from piston.utils   import rc
 from books.models   import Book, Author
 
 class BookHandler(BaseHandler):
@@ -25,7 +26,7 @@ class BookHandler(BaseHandler):
 
 class AuthorHandler(BaseHandler):
     allowed_methods = ('GET', 'POST',)
-    fields = ('first_name', 'last_name', 'email')
+    fields = (('first_name', 'last_name', 'email'))
     model = Author
 
     def read(self, request):
@@ -37,7 +38,7 @@ class AuthorHandler(BaseHandler):
         if request.content_type:
             data = request.data
             print data
-            em = self.mode(first_name=data['first_name'],
+            em = self.model(first_name=data['first_name'],
                     last_name=data['last_name'],
                     email=data['email'])
             em.save()
