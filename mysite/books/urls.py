@@ -1,6 +1,8 @@
 from django.conf.urls.defaults import *
-from views import hello
+import views
 
 urlpatterns = patterns('',
-        (r'hello/', hello),
+        (r'hello/', views.hello),
+        (r'^search_form/$', views.search_form),
+        (r'^search/$', views.search),
 )
