@@ -1,6 +1,7 @@
 # Create your views here.
 from django.http        import HttpResponse
 from django.shortcuts   import render_to_response
+from forms              import ContactForm
 
 def hello(request):
     values = request.META.items()
@@ -21,3 +22,14 @@ def search(request):
     else:
         message = 'You submitted an empty form.'
     return HttpResponse(message)
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            print(cd)
+            return HttpResponseRedirect('/contact/thanks/')
+    else:
+        form = ContactForm
+    return render_to_response('contact_form.html', {'form': form})
