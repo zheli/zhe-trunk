@@ -1,7 +1,8 @@
 # Create your views here.
-from django.http        import HttpResponse
+from django.http        import HttpResponse, HttpResponseRedirect
 from django.shortcuts   import render_to_response
-from forms              import ContactForm
+from forms              import ContactForm, UploadFileForm
+import os
 
 def hello(request):
     values = request.META.items()
@@ -31,5 +32,21 @@ def contact(request):
             print(cd)
             return HttpResponseRedirect('/contact/thanks/')
     else:
-        form = ContactForm
+        form = ContactForm()
     return render_to_response('contact_form.html', {'form': form})
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/')
+    else:
+        form = UploadFileForm()
+    return render_to_response('upload.html', {'form':form})
+
+def handle_uploaded_file(f):
+    destination = open(os.getcwd()+'/test.mobi', 'wb+')
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
