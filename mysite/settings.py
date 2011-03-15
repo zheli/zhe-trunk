@@ -82,7 +82,7 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.admin',
     'filetransfers',
-    'mysite.books',
-    'mysite.api',
-    'mysite.upload',
+    'books',
+    'api',
+    'upload',
 )

@@ -17,5 +17,6 @@ urlpatterns = patterns('',
      (r'^admin/',   include(admin.site.urls)),
      (r'api/',      include('mysite.api.urls')),
      (r'upload/',   'upload.views.upload_handler'),
+     (r'^download/(?P<pk>.+)$', 'upload.views.download_handler'),
      (r'',        include('books.urls')),
 )
