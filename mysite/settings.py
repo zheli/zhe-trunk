@@ -84,4 +84,5 @@ INSTALLED_APPS = (
     'filetransfers',
     'mysite.books',
     'mysite.api',
+    'mysite.upload',
 )
