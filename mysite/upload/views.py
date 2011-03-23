@@ -19,5 +19,9 @@ def upload_handler(request):
                 'uploads':UploadModel.objects.all()})
 
 def download_handler(request, pk):
-    upload = get_object_or_404(UploadModel, pk=pk)
-    return serve_file(request, upload.file, save_as=False)
+    if request.user.is_authenticated():
+        upload = get_object_or_404(UploadModel, pk=pk)
+        return serve_file(request, upload.file, save_as=False)
+    else:
+        view_url = reverse('books.views.hello')
+        return HttpResponseRedirect(view_url)
