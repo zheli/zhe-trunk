@@ -82,6 +82,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     #os.path.join(PROJECT_ROOT, "books"),
     os.path.join(PROJECT_ROOT, 'upload'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -91,6 +92,7 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.admin',
     'filetransfers',
+    'social_auth',
     #'books',
     #'api',
     'upload',
@@ -98,3 +100,15 @@ INSTALLED_APPS = (
 PREPARE_UPLOAD_BACKEND      = 'filetransfers.backends.default.prepare_upload'
 SERVE_FILE_BACKEND          = 'filetransfers.backends.default.serve_file'
 PUBLIC_DOWNLOAD_URL_BACKEND = 'filetransfers.backends.default.public_download_url'
+AUTHENTICATION_BACKENDS = (
+        'social_auth.backends.twitter.TwitterBackend',
+        'django.contrib.auth.backends.ModelBackend',
+)
+TWITTER_CONSUMER_KEY = 'LSoo2bS4EvtqLtfhWI9Ug'
+TWITTER_CONSUMER_SECRET = 'OkJjh6dsqCNNMdXGq6O1qUTmOyrUOLRT0eW7JScHN8Y'
+
+LOGIN_URL = '/login-form/'
+LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_ERROR_URL = '/login-error/'
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_EXPIRATION = 'expires'
