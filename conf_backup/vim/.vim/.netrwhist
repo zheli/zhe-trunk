@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/zhe/codes/upload-sample/templates'
+let g:netrw_dirhist_2='/home/zhe/codes/upload-sample'
+let g:netrw_dirhist_3='/home/zhe/codes/upload-sample/upload'
+let g:netrw_dirhist_4='/home/zhe/codes/upload-sample'
+let g:netrw_dirhist_5='/home/zhe/codes/upload-sample/upload'
+let g:netrw_dirhist_6='/home/zhe/codes/upload-sample/upload/templates'
+let g:netrw_dirhist_7='/home/zhe/codes/upload-sample/upload/templates/upload'
+let g:netrw_dirhist_8='/home/zhe/codes/my_trunk/mysite/upload'
