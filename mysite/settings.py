@@ -18,12 +18,6 @@ DATABASES = {
             }
         
         }
-#DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-#DATABASE_NAME = './my_datebase'             # Or path to database file if using sqlite3.
-#DATABASE_USER = ''             # Not used with sqlite3.
-#DATABASE_PASSWORD = ''         # Not used with sqlite3.
-#DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-#DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -104,11 +98,8 @@ AUTHENTICATION_BACKENDS = (
         'social_auth.backends.twitter.TwitterBackend',
         'django.contrib.auth.backends.ModelBackend',
 )
-TWITTER_CONSUMER_KEY = 'LSoo2bS4EvtqLtfhWI9Ug'
-TWITTER_CONSUMER_SECRET = 'OkJjh6dsqCNNMdXGq6O1qUTmOyrUOLRT0eW7JScHN8Y'
 
 LOGIN_URL = '/login-form/'
 LOGIN_REDIRECT_URL = '/logged-in/'
 LOGIN_ERROR_URL = '/login-error/'
-SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 SOCIAL_AUTH_EXPIRATION = 'expires'
