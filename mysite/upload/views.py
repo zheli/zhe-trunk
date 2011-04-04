@@ -7,8 +7,10 @@ from django.views.generic.simple    import direct_to_template
 from filetransfers.api              import prepare_upload, serve_file
 from models                         import UploadForm, UploadModel
 
+@login_required
 def upload_handler(request):
     view_url = reverse('upload.views.upload_handler')
+    names = request.user.social_auth.values_list('provider', flat=True)
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         form.save()
@@ -18,10 +20,13 @@ def upload_handler(request):
     form = UploadForm()
     return direct_to_template(request, 'upload.html',
             {'form': form, 'upload_url':upload_url, 'upload_data':upload_data,
-                'uploads':UploadModel.objects.all()})
+                'uploads':UploadModel.objects.all(), 'names':names})
 
 def twitter_login(request):
-    return render_to_response('social_login.html', RequestContext(request))
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('upload_handler')
+    else:
+        return render_to_response('social_login.html', RequestContext(request))
 
 
 def download_handler(request, pk):

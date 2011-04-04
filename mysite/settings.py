@@ -99,7 +99,7 @@ AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_URL = '/login-form/'
-LOGIN_REDIRECT_URL = '/logged-in/'
-LOGIN_ERROR_URL = '/login-error/'
-SOCIAL_AUTH_EXPIRATION = 'expires'
+try:
+    from local_settings import *
+except:
+    pass
