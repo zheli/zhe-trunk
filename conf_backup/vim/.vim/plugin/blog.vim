@@ -12,29 +12,23 @@
 " along with this program; if not, write to the Free Software Foundation,
 " Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
 " 
-" BlogDel, revised BlogList via http://wiki.yepn.net/vimpress
-"
 " Original Author: Adrien Friggeri <adrien@friggeri.net>
 " Maintainer:	   Josh Kenzer <jkenzer@radicalbehavior.com>
 " URL:		   http://www.radicalbehavior.net/projets/vimblog/
-" Version:	   1.2
-" Last Change:     2011 March 2
+" Version:	   1.0
+" Last Change:     2011 February 28
 "
 " Commands :
-" ":BlogList [count]"
-"   Lists the last x articles in the blog - if left blank 10 are returned
+" ":BlogList"
+"   Lists all articles in the blog
 " ":BlogNew"
 "   Opens page to write new article
 " ":BlogOpen <id>"
 "   Opens the article <id> for edition
-" ":BlogDel <id>" 
-"   Del the article <id>
 " ":BlogSend"
 "   Saves the article to the blog
 " ":BlogUp <image name>"
-"   Uploads an image to the blog and inserts the image url. It will use the
-"   img_template var to fill in a whole img tag if wanted. Use %s where you'd
-"   like the actual url to be.
+"   Uploads an image to the blog and inserts the image url
 "
 " Configuration : 
 "   Edit the "Settings" section (starts at line 51).
@@ -47,12 +41,11 @@
 "   Just fill in the blanks, do not modify the highlighted parts and everything
 "   should be ok.
 
-command! -nargs=* BlogList exec("py blog_list_posts(<args>)")
+command! -nargs=0 BlogList exec("py blog_list_posts()")
 command! -nargs=0 BlogNew exec("py blog_new_post()")
 command! -nargs=0 BlogSend exec("py blog_send_post()")
 command! -nargs=1 BlogOpen exec('py blog_open_post(<f-args>)')
 command! -nargs=1 BlogUp exec('py blog_upload_img(<f-args>)')
-command! -nargs=1 BlogDel exec('py blog_del_post(<f-args>)')
 
 python <<EOF
 # -*- coding: utf-8 -*-
@@ -65,12 +58,9 @@ import urllib , urllib2 , vim , xml.dom.minidom , xmlrpclib , sys , string , re
 enable_tags = 1
 blog_username = 'linuxcity'
 blog_password = '2410112'
-blog_url = 'http://blog.systemsthoughts.com/'  
+blog_url = 'http://blog.systemsthoughts.com'  
 blog_api = 'http://blog.systemsthoughts.com/xmlrpc.php'  
-img_dir = '/path/to/images/'
-
-#Remove this line if you wish to just have the url inserted
-img_template = '<img src="%s" width="500" height="" border=0 style="margin-bottom:5px;" />'
+img_dir = '/path/to/img/'
 
 #####################
 # Do not edit below #
@@ -213,56 +203,38 @@ def blog_list_edit():
   except:
     pass
 
-def blog_list_posts(count=10): 
-  try: 
-    allposts = handler.getRecentPosts('',blog_username, blog_password, count) 
-    del vim.current.buffer[:] 
-    vim.command("set syntax=blogsyntax") 
-    vim.current.buffer[0] = "\"====== List of Posts =========" 
-    for p in allposts: 
-      vim.current.buffer.append(("%-7s\t" % p["postid"]) + (p["title"]).encode("utf-8")) 
-      vim.command('set nomodified') 
-    blog_edit_off() 
-    vim.current.window.cursor = (2, 0) 
-    vim.command('map <enter> :py blog_list_edit()<cr>') 
-  except: 
-    sys.stderr.write("An error has occured") 
-
-def blog_del_post(id): 
-  try: 
-    handler.deletePost('',id, blog_username, blog_password) 
-    allposts = handler.getRecentPosts('',blog_username, blog_password, 10) 
-    del vim.current.buffer[:] 
-    vim.command("set syntax=blogsyntax") 
-    vim.current.buffer[0] = "\"====== New List of Posts =========" 
-    for p in allposts: 
-      vim.current.buffer.append(("%-7s\t" % p["postid"]) + (p["title"]).encode("utf-8")) 
-      vim.command('set nomodified') 
-    blog_edit_off() 
-    vim.current.window.cursor = (2, 0) 
-    vim.command('map <enter> :py blog_list_edit()<cr>') 
-  except: 
-    pass 
+def blog_list_posts():
+  try:
+    lessthan = handler.getRecentPosts('',blog_username, blog_password,1)[0]["postid"]
+    size = len(lessthan)
+    allposts = handler.getRecentPosts('',blog_username, blog_password,int(lessthan))
+    del vim.current.buffer[:]
+    vim.command("set syntax=blogsyntax")
+    vim.current.buffer[0] = "\"====== List of Posts ========="
+    for p in allposts:
+      vim.current.buffer.append(("".zfill(size-len(p["postid"])).replace("0", " ")+p["postid"])+"\t"+(p["title"]).encode("utf-8"))
+      vim.command('set nomodified')
+    blog_edit_off()
+    vim.current.window.cursor = (2, 0)
+    vim.command('map <enter> :py blog_list_edit()<cr>')
+  except:
+    sys.stderr.write("An error has occured")
     
 def blog_upload_img(filename):
   try:
     #filename = vim.eval(filename)
     if(os.path.exists(img_dir+filename) == False):
-      raise FileError('file not found'+filename)
+      raise Exception,'file %s not found' %filename
     else:
       content_type = 'image/%s' %(filename.split('.')[-1])
       if content_type == 'image/jpg':
         content_type = 'image/jpeg'
         content_type = content_type.lower()
-
+  
     #upload
-    newFile = handler.newMediaObject('', blog_username, blog_password,{'name': filename, 'type': content_type, 'bits': xmlrpclib.Binary(open(img_dir+filename).read())})
-
+    newFile = handler.newMediaObject('', user_name, password,{'name': filename, 'type': content_type, 'bits': xmlrpclib.Binary(open(img_dir+filename).read())})
+  
     #write the url of your upload photo
-    #vim.command("normal i"+newFile['url'])
-    if(img_template):
-      vim.command("normal i"+re.sub(r'%s', newFile['url'], img_template))
-    else:
-      vim.command("normal i"+newFile['url'])
+    vim.command("normal i"+newFile['url'])
   except:
     sys.stderr.write("An error has occured")

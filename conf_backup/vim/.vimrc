@@ -9,5 +9,5 @@ let Tlist_Ctags_Cmd='/usr/bin/ctags'
 filetype plugin indent on
 filetype plugin on
 set ofu=syntaxcomplete#Complete
-colorscheme pablo
+colorscheme solarized
 set guioptions-=T
