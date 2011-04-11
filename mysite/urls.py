@@ -22,5 +22,6 @@ urlpatterns = patterns('',
      #    {'template_name': 'templates/login.html'}),
      url(r'', include('social_auth.urls')),
      url(r'^accounts/login/$', 'upload.views.twitter_login'),
+     url(r'^logout/$', 'upload.views.logout'),
      #(r'',        include('books.urls')),
 )

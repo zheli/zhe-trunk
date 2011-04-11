@@ -1,4 +1,5 @@
 from django.core.urlresolvers       import reverse
+from django.contrib.auth            import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http                    import HttpResponseRedirect
 from django.shortcuts               import get_object_or_404, render_to_response
@@ -36,3 +37,7 @@ def download_handler(request, pk):
     else:
         view_url = reverse('books.views.hello')
         return HttpResponseRedirect(view_url)
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect('/')
