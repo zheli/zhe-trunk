@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'hello.urls'
+ROOT_URLCONF = 'up5.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -145,4 +145,8 @@ LOGGING = {
         },
     }
 }
-#try:
+try:
+    from social_auth_settings import *
+    from upload_settings import *
+except:
+    pass
