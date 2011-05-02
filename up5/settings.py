@@ -1,4 +1,4 @@
-# Django settings for hello project.
+# Django settings for up5.project.
 import os
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
