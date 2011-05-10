@@ -24,3 +24,6 @@ if &term =~ "xterm"
         let &t_Sb="\ESC[4%dm"
     endif
 endif
+"change background color to red for line that is longer than 80 chars
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
+match OverLength /\%81v.\+/

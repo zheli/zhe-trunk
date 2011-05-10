@@ -10,6 +10,8 @@ from models                         import UploadForm, UploadModel
 
 @login_required
 def upload_handler(request):
+    extra_data = request.user.social_auth.get()
+    print(extra_data.extra_data)
     view_url = reverse('upload.views.upload_handler')
     names = request.user.social_auth.values_list('provider', flat=True)
     if request.method == 'POST':
