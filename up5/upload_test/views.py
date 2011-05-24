@@ -10,7 +10,7 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            save_file(f)
+            #save_file(f)
             return HttpResponseRedirect('/')
 
     else:
