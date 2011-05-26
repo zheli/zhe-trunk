@@ -3,7 +3,7 @@ from django.db    import models
 
 # Create your models here.
 class UploadFileModel(models.Model):
-    title = models.CharField(max_length = 60, blank=True)
+    title = models.CharField(max_length = 64, blank=True)
     file  = models.FileField(upload_to = 'file/%d')
 
     @property
