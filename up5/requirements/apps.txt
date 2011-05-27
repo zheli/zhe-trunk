@@ -1,4 +1,6 @@
 Django==1.3
 mercurial==1.7.3
+Fabric>=1.0.1
+pycrypto>=1.9
 http://bitbucket.org/wkornewald/django-filetransfers/get/tip.zip#egg=django-filetransfers
 -e git://github.com/omab/django-social-auth.git#egg=django-social-auth
