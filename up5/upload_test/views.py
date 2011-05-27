@@ -32,11 +32,11 @@ def upload_handler(request):
     return direct_to_template(request, 'upload2.html',
             {'form':form, 'upload_url': upload_url,
                 'upload_data': upload_data,
-                'uploads': UploadFileModel.objects.all()})
+                'uploads': reversed(UploadFileModel.objects.all())})
 
 def download_handler(request, pk):
     upload = get_object_or_404(UploadFileModel, pk=pk)
-    return serve_file(request, upload.file, save_as=True)
+    return serve_file(request, upload.file, save_as=False)
 
 def delete_handler(request, pk):
     if request.method == 'POST':
