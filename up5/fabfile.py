@@ -18,7 +18,7 @@ RSYNC_EXCLUDE                = (
         'fabfile.py',
         'bootstrap.py')
 env.home                     = '/home/ec2-user/'
-env.prject                   = 'up5_website'
+env.project                   = 'up5_website'
 
 def _setup_path():
     env.root            = os.path.join(env.home, 'www', env.environment)
