@@ -95,13 +95,13 @@ def touch():
     require('code_root', provided_by=('staging', 'production'))
     apache_dir = os.path.join(env.code_root, 'apache')
     with cd(apache_dir):
-        run('touch %s.wsgi' % env.environment)
+        run('touch up5_%s.wsgi' % env.environment)
 
 
 def update_apache_conf():
     """ upload apache configuration to remote host """
     require('root', provided_by=('staging', 'production'))
-    source = os.path.join('apache', '%(environment)s.conf' % env)
+    source = os.path.join('apache', 'up5_%(environment)s.conf' % env)
     dest = os.path.join(env.home, 'apache.conf.d')
     put(source, dest, mode=0755)
     apache_reload()
@@ -129,7 +129,7 @@ def symlink_django():
     """ create symbolic link so Apache can serve django admin media """
     require('root', provided_by=('staging', 'production'))
     admin_media = os.path.join(env.virtualenv_root,
-                               'src/django/django/contrib/admin/media/')
+            'src/django/django/contrib/admin/media/')
     media = os.path.join(env.code_root, 'media/admin')
     if not files.exists(media):
         run('ln -s %s %s' % (admin_media, media))
