@@ -18,12 +18,12 @@ RSYNC_EXCLUDE                = (
         'fabfile.py',
         'bootstrap.py')
 env.home                     = '/home/ec2-user/'
-env.project                   = 'up5_website'
+env.project                   = 'up5'
 
 def _setup_path():
     env.root            = os.path.join(env.home, 'www', env.environment)
     env.code_root       = os.path.join(env.root, env.project)
-    env.virtualenv_root = os.path.join(env.root, 'envs')
+    env.virtualenv_root = os.path.join(env.root, 'env')
     env.settings        = '%(project)s.settings_%(environment)s' % env
 
 def staging():
@@ -84,7 +84,7 @@ def update_requirements():
     require('code_root', provided_by=('staging', 'production'))
     requirements = os.path.join(env.code_root, 'requirements')
     with cd(requirements):
-        cmd = ['pip install']
+        cmd = ['pip install --upgrade']
         cmd += ['-E %(virtualenv_root)s' % env]
         cmd += ['--requirement %s' % os.path.join(requirements, 'apps.txt')]
         run(' '.join(cmd))
@@ -110,19 +110,19 @@ def update_apache_conf():
 def configtest():    
     """ test Apache configuration """
     require('root', provided_by=('staging', 'production'))
-    run('apache2ctl configtest')
+    run('apachectl configtest')
 
 
 def apache_reload():    
     """ reload Apache on remote host """
     require('root', provided_by=('staging', 'production'))
-    run('sudo /etc/init.d/apache2 reload')
+    run('sudo /etc/init.d/httpd reload')
 
 
 def apache_restart():    
     """ restart Apache on remote host """
     require('root', provided_by=('staging', 'production'))
-    run('sudo /etc/init.d/apache2 restart')
+    run('sudo /etc/init.d/httpd restart')
 
 
 def symlink_django():    
