@@ -27,3 +27,7 @@ endif
 "change background color to red for line that is longer than 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
 match OverLength /\%81v.\+/
+
+"tab-completion
+set wildmode=longest,list,full
+set wildmenu
