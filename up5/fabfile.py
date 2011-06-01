@@ -17,8 +17,8 @@ RSYNC_EXCLUDE                = (
         'local_settings.py',
         'fabfile.py',
         'bootstrap.py')
-env.home                     = '/home/ec2-user/'
-env.project                   = 'up5'
+env.home                     = '/home/up5/'
+env.project                  = 'up5'
 
 def _setup_path():
     env.root            = os.path.join(env.home, 'www', env.environment)
@@ -101,9 +101,10 @@ def touch():
 def update_apache_conf():
     """ upload apache configuration to remote host """
     require('root', provided_by=('staging', 'production'))
-    source = os.path.join('apache', 'up5_%(environment)s.conf' % env)
+    source = os.path.join(env.code_root, 'apache', 'up5_%(environment)s.conf' % env)
     dest = os.path.join(env.home, 'apache.conf.d')
-    put(source, dest, mode=0755)
+    #put(source, dest, mode=0755)
+    run('ln -sf %s %s' % (os.path.abspath(source), dest))
     apache_reload()
 
 
