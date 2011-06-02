@@ -1,6 +1,10 @@
+#!/usr/bin/python
+import sys
 import os
+from optparse import OptionParser
 import subprocess
 
+parser = OptionParser()
 if 'VIRTUAL_ENV' not in os.environ:
     sys.stderr.write('$VIRTUAL_ENV not found. \n\n')
     parser.print_usage()
