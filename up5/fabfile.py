@@ -5,6 +5,15 @@ from fabric.contrib.project import rsync_project
 from fabric.contrib import files, console
 from fabric import utils
 from fabric.decorators import hosts
+web_service = {}
+web_service['ubuntu'] = {
+    'apache'    : 'apache2',
+    'apachectl' : 'apache2ctl',
+}
+web_service['centos'] = {
+    'apache'    : 'httpd',
+    'apachectl' : 'apachectl',
+}
 
 RSYNC_EXCLUDE                = (
         '.DS_Store',
@@ -17,11 +26,11 @@ RSYNC_EXCLUDE                = (
         'local_settings.py',
         'fabfile.py',
         'bootstrap.py')
-env.home                     = '/home/up5/'
+env.home                     = '/home/'
 env.project                  = 'up5'
 
 def _setup_path():
-    env.root            = os.path.join(env.home, 'www', env.environment)
+    env.root            = os.path.join(env.home, env.project, env.environment)
     env.code_root       = os.path.join(env.root, env.project)
     env.virtualenv_root = os.path.join(env.root, 'env')
     env.settings        = '%(project)s.settings_%(environment)s' % env
@@ -31,6 +40,7 @@ def staging():
     env.user = 'ec2-user'
     env.environment = 'staging'
     env.hosts = ['67.202.21.91']
+    env.web_service = web_service['centos']
     _setup_path()
 
 def production():
@@ -42,7 +52,7 @@ def bootstrap():
     """ initialize remote host environment (virtualenv, deploy, update) """
     require('root', provided_by=('staging', 'production'))
     run('mkdir -p %(root)s' % env)
-    run('mkdir -p %s' % os.path.join(env.home, 'www', 'log'))
+    run('mkdir -p %s' % os.path.join(env.home, env.project, 'log'))
     create_virtualenv()
     deploy()
     update_requirements()
@@ -101,7 +111,7 @@ def touch():
 def update_apache_conf():
     """ upload apache configuration to remote host """
     require('root', provided_by=('staging', 'production'))
-    source = os.path.join(env.code_root, 'apache', 'up5_%(environment)s.conf' % env)
+    source = os.path.join(env.code_root, 'apache', '%(project)s_%(environment)s.conf' % env)
     dest = os.path.join(env.home, 'apache.conf.d')
     #put(source, dest, mode=0755)
     run('ln -sf %s %s' % (os.path.abspath(source), dest))
@@ -111,19 +121,19 @@ def update_apache_conf():
 def configtest():    
     """ test Apache configuration """
     require('root', provided_by=('staging', 'production'))
-    run('apachectl configtest')
+    run('%s configtest' % env.web_service['apachectl'])
 
 
 def apache_reload():    
     """ reload Apache on remote host """
     require('root', provided_by=('staging', 'production'))
-    run('sudo /etc/init.d/httpd reload')
+    run('sudo /etc/init.d/%s reload' % env.web_service['apache'])
 
 
 def apache_restart():    
     """ restart Apache on remote host """
     require('root', provided_by=('staging', 'production'))
-    run('sudo /etc/init.d/httpd restart')
+    run('sudo /etc/init.d/%s restart' % env.web_service['apache'])
 
 
 def symlink_django():    
