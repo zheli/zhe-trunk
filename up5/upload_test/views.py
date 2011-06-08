@@ -20,7 +20,7 @@ def upload_file(request):
             {'form': form})
 
 def upload_handler(request):
-    view_url = reverse('upload_test.views.upload_handler')
+    view_url = reverse('up5.upload_test.views.upload_handler')
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -43,4 +43,4 @@ def delete_handler(request, pk):
         upload = get_object_or_404(UploadFileModel, pk=pk)
         upload.file.delete()
         upload.delete()
-    return HttpResponseRedirect(reverse('upload_test.views.upload_handler'))
+    return HttpResponseRedirect(reverse('up5.upload_test.views.upload_handler'))
