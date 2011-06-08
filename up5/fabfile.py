@@ -110,9 +110,9 @@ def touch():
 
 def update_apache_conf():
     """ upload apache configuration to remote host """
-    require('root', provided_by=('staging', 'production'))
+    require('code_root', provided_by=('staging', 'production'))
     source = os.path.join(env.code_root, 'apache', '%(project)s_%(environment)s.conf' % env)
-    dest = os.path.join(env.home, 'apache.conf.d')
+    dest = os.path.join(env.home, env.project, 'apache.conf.d')
     #put(source, dest, mode=0755)
     run('ln -sf %s %s' % (os.path.abspath(source), dest))
     apache_reload()
