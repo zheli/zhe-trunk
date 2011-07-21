@@ -2,7 +2,8 @@ AUTHENTICATION_BACKENDS = (
         'social_auth.backends.twitter.TwitterBackend',
         'django.contrib.auth.backends.ModelBackend',
 )
-LOGIN_REDIRECT_URL = '/upload/'
+LOGIN_URL          = '/login/'
+LOGIN_REDIRECT_URL = '/'
 TWITTER_CONSUMER_KEY = 'LSoo2bS4EvtqLtfhWI9Ug'
 TWITTER_CONSUMER_SECRET = 'OkJjh6dsqCNNMdXGq6O1qUTmOyrUOLRT0eW7JScHN8Y'
 FACEBOOK_APP_ID = '147599935286264'
