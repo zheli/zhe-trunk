@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'up5.upload_test',
     'filetransfers',
+    'social_auth',
 )
 
 # A sample logging configuration. The only tangible logging

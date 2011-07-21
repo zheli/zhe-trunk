@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
+from upload_test.views         import logout, home
+from django.contrib            import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,6 +14,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/',     include(admin.site.urls)),
-    #url(r'',    include('up5.upload.urls')),
     url(r'^test/',    include('up5.upload_test.urls')),
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^$', home, name='home'),
+    url(r'', include('social_auth.urls')),
 )
