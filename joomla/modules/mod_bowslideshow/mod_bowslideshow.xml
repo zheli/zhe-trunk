@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Bow Slideshow</name>
+	<author>Vsmart Extensions</author>
+	<creationDate>July 2011</creationDate>
+	<copyright>Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>exts@vsmarttech.com</authorEmail>
+	<authorUrl>vsmart-extensions.com</authorUrl>
+	<version>1.5.0</version>
+	<description>This Module show a nice image slideshow with links and descriptions. Slideshow using sliderman.js script</description>
+	<files>
+		<filename module="mod_bowslideshow">mod_bowslideshow.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="source" type="text" default="images/stories/fruit" label="Source images" description="Folder source contain images for slideshow" size="80" />		
+		<param
+			name="width"
+			type="text"
+			default="700"
+			size="9"
+			label="Width"
+			description="The width of slideshow (the default is 700)" />
+		<param
+			name="height"
+			type="text"
+			default="450"
+			size="9"
+			label="Height"
+			description="The height of slideshow (the default is 450)" />
+		<param name="effects" type="list" default="stairs" label="Effects" description="Slideshow Effects">
+			<option value="fade">fade</option>
+			<option value="move_left">from left</option>
+			<option value="move_right">from right</option>
+			<option value="move_bottom">from bottom</option>
+			<option value="move_top">from top</option>
+			<option value="stairs">stairs</option>
+			<option value="blinds">blinds</option>
+			<option value="rain">rain</option>
+			<option value="boom">boom</option>
+			<option value="random">random</option>
+		</param>
+		<param name="duration" type="text" default="600" label="Duration" description="Effect duration" size="30"/>
+		<param name="auto" type="list" default="1" label="Auto Play" description="Slideshow Auto Play">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</param>
+		<param name="navigation" type="list" default="1" label="Show Navigation" description="Show Navigation">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</param>
+		<param name="button" type="list" default="1" label="Show Button" description="Show Button: Next, Prev">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+			<option value="2">on hover</option>
+		</param>
+		<param name="show_caption" type="list" default="1" label="Show Caption" description="Show Image Caption and Image Description">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+			<option value="2">on hover</option>
+		</param>
+		<!--<param name="background_caption" type="text" default="#000000" label="Caption Background" description="Caption Background" size="10" />
+		<param name="opacity_caption" type="text" default="0.4" label="Caption Opacity" description="Caption Opacity" size="8" /> -->
+		<param name="height_caption" type="text" default="100" label="Caption Height" description="Caption Height" size="8" />
+		<param name="position_caption" type="list" default="bottom" label="Caption Position" description="Caption Position">
+			<option value="top">top</option>
+			<option value="bottom">bottom</option>
+			<option value="left">left</option>
+			<option value="right">right</option>
+		</param>
+		<param name="show_readmore" type="list" default="1" label="Show Readmore" description="Show Readmore Text">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</param>
+		<param name="readmore_text" type="text" default="Read more" label="Readmore Text" description="Readmore text" size="20"/>
+		<param name="using_article" type="list" default="0" label="Using Article" description="Using Article for image caption and description">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</param>
+		<param name="id" type="text" default="" label="Article ID" description="Article ID:1,2,3 replace for description above" size="30"/>
+		<param name="caption" type="textarea" default="" cols="60" rows="10" label="Description" description="Syntax to add image link,image caption, image description: {link='http://vsmart-extensions.com' caption='Slide1 Caption' description='Slide1 Description'}" />
+	</params>
+	<params group="advanced">
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+	</params>
+</install>
