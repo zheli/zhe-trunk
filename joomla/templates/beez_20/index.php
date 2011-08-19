@@ -238,6 +238,7 @@ $doc->addScript($this->baseurl.'/templates/beez_20/javascript/md_stylechanger.js
 
                                         <jdoc:include type="modules" name="position-14" />
                                         <p>
+                                                &copy;<?php echo date('Y'); ?> <?php echo $app->getCfg('sitename'); ?><br />
                                                 <?php echo JText::_('TPL_BEEZ2_POWERED_BY');?> <a href="http://www.joomla.org/">Joomla!&#174;</a>
                                         </p>
 
