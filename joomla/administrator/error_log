@@ -1,0 +1,2 @@
+[19-Aug-2011 04:20:17] PHP Warning:  constant() [<a href='function.constant'>function.constant</a>]: Couldn't find constant JPATH_ in /home/system20/domains/c.systemsthoughts.com/libraries/joomla/installer/adapters/module.php on line 75
+[19-Aug-2011 04:20:24] PHP Warning:  constant() [<a href='function.constant'>function.constant</a>]: Couldn't find constant JPATH_ in /home/system20/domains/c.systemsthoughts.com/libraries/joomla/installer/adapters/module.php on line 75
