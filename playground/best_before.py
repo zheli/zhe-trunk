@@ -1,6 +1,5 @@
 import sys
 import datetime
-before_date = datetime.date()
 
 def get_label(input_date = None):
     """Get input
@@ -20,37 +19,52 @@ def get_label(input_date = None):
 
     return numbers
 
-def find_year(number_list):
-    """Find year in the string list
-
-    >>> find_year(['1','2','2345'])
-    '2345'
-    >>> find_year(['1','2','0'])
-    '2000'
-
-    """
-    for number in number_list:
-        if int(number) > 31:
-            if int(number) < 100:
-                return str(int(number)+2000)
-            return number
-        if 0 == int(number):
-            return '2000'
- #       if number > 
-
+def date_parser(input_year, input_month, input_day):
+    if len(input_year)==4:
+        year = int(input_year)
+    else:
+        year = int(input_year) + 2000
+    if len(input_month)>2 or int(input_month) > 12:
+        raise Exception('%s is invalid for month' % input_month)
+    else:
+        month = int(input_month)
+    day = int(input_day)
+    try:
+        return datetime.date(year, month, day)
+    except:
+        raise Exception('Invalid day maybe %s%s%s' % (input_year, input_month, input_day))
 
 def main(input_date = None):
-    """This function has no tests
-    >>> main('02/4/67')
-    '2067'
+    """
+    >>> main('1999/1/1')
+    '1999-01-01'
+    >>> main('1999/123/1')
+    'Invalid date'
+    >>> main('1999/13/1')
+    'Invalid date'
+    >>> main('000/1/1')
+    '2000-01-01'
+    >>> main('00/1/1')
+    '2000-01-01'
+    >>> main('0/1/1')
+    '2000-01-01'
+    >>> main('
 
     """
     if not input_date:
         number_list = get_label()
     else:
         number_list = get_label(input_date)
-    year = find_year(number_list)
-    return year
+
+    try:
+        date_1 = date_parser(number_list[0], number_list[1], number_list[2])
+    except Exception:
+        date_1 = None
+
+    if date_1:
+        return date_1.strftime("%Y-%m-%d")
+    else:
+        return 'Invalid date'
 
 if __name__ == "__main__":
     import doctest
