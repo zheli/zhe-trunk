@@ -1,0 +1,64 @@
+.bowslieshow-container{
+	float: left;
+	background: url(../images/image_shadow.png) no-repeat center bottom;
+	padding-bottom:16px;
+}
+a.bowslieshow-prev,a.bowslieshow-prev:visited{
+	background: url(../images/left.png) no-repeat left center;
+	width: 50px;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -20px;
+	text-decoration: none;
+}
+a.bowslieshow-prev:hover{
+	background: url(../images/left_hover.png) no-repeat left center !important;
+}
+a.bowslieshow-next,a.bowslieshow-next:visited{
+	background: url(../images/right.png) no-repeat right center;
+	width: 50px;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: -20px;
+	text-decoration: none;
+}
+a.bowslieshow-next:hover{
+	background: url(../images/right_hover.png) no-repeat right center !important;
+}
+.bowslieshow-description {
+	padding: 10px 20px;
+	font-size: 20px;
+	font-weight:bold;
+	line-height: 160%;
+	letter-spacing: 1px;
+	text-align: right;
+	color: #ffffff;
+	text-shadow: 0 1px 3px #000000;
+}
+.bowslieshow-navigation { margin: 0; padding: 10px 0 0 0; height: 16px; text-align: center; overflow-y: hidden;clear:both;text-align:center !important; }
+
+.bowslieshow-navigation a:link, .bowslieshow-navigation a:active, .bowslieshow-navigation a:visited, .bowslieshow-navigation a:hover{
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+	line-height: 0;
+	text-decoration: none;
+}
+
+.bowslieshow-navigation a img
+{
+	border: none;
+	width: 18px;
+	height: 20px;
+	background: url(../images/controlls.gif) no-repeat center bottom;
+}
+
+.bowslieshow-navigation a.active img,.bowslieshow-navigation a:hover img
+{
+	background: url(../images/controlls.gif) no-repeat center top;
+}
+.readmorelink{
+	color:#fff !important;
+}

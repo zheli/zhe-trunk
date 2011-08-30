@@ -1,0 +1,95 @@
+/*
+ * jQuery statusmessageQ plugin
+ * Version 0.01 (29-JUL-2009)
+ * @requires jQuery v1.3.2 or later
+ *
+ * Copyright (c) 2009-2010 M. Brown (mbrowncode A gmail.com)
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
+ * Modified by Zhe
+ */
+ 
+div.statusmessage_wrapper {
+    /* position: fixed; */
+    /* top: 70px; */
+    /* left: 0px; */
+    margin: 0px 1% 0px 1%;
+    padding: 2px 2px 2px 2px;
+    max-height: 65px;
+    overflow: auto;
+}
+div.statusmessage {
+	font-size: 1.2em;
+	font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 4px 6px 4px 6px;
+    background-color: #F8F8C0;
+    color: #111;
+    border: 1px solid #CCC;
+	text-align: center;
+	-moz-border-radius-topleft: 9px;
+	-moz-border-radius-bottomleft: 9px;
+	-webkit-border-radius-topleft: 9px;		
+	-webkit-border-radius-bottomleft: 9px;
+}
+div.statusmessage>a:link, div.statusmessage>a:visited {
+	color: #FFCC33;
+	padding: 0 1px;
+	text-decoration: none;
+}
+div.statusmessage>a:hover {
+	color: #FFFF00;
+	padding: 0 1px;
+	text-decoration: underline;
+}
+div.statusmessage_info {
+    background-color: #CC0000;
+    color: #FFF;
+}
+div.statusmessage_warn {
+    background-color: #F8F8C0;
+    color: #933;
+}
+div.statusmessage_error {
+    background-color: #BB4444;
+    color: #DDD;
+}
+div.statusmessage span {
+	padding: 4px 6px 4px 20px;
+    font-size: 70%;
+}
+div.statusmessage_info span {
+    color: #F8F8C0;
+}
+div.statusmessage_warn span {
+    color: #F8F8C0;
+}
+div.statusmessage_error span {
+    color: #BB4444;
+}
+div.statusmessage_info_icon {
+    background-image: url('flair/statusmessageQ/info_i.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    float: left;
+    padding-right: 3px;
+}
+div.statusmessage_warn_icon {
+    background-image: url('flair/statusmessageQ/warning_yield.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    float: left;
+    padding-right: 3px;
+}
+div.statusmessage_error_icon {
+    background-image: url('flair/statusmessageQ/error_x.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    float: left;
+    padding-right: 3px;
+}

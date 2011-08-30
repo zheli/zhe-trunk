@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- $Id: zh-CN.install.xml 2011-07-01 17:33:12M YeYo $ -->
+<extension type="package" version="1.7">
+    <name>简体中文</name>
+	<tag>zh-CN</tag>
+    <packagename>zh-CN</packagename>
+    <version>1.7.0</version>
+	<creationDate>2011-07-20</creationDate>
+	<author>YeYo</author>
+	<authorEmail>simear2004@gmail.com</authorEmail>
+	<authorUrl>www.nzye.com</authorUrl>
+	<copyright> </copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Joomla 1.7.0 语言文件是由典藏阁（www.nzye.com）校对整理，但不包含各词条的校对。100% 汉化词条。</description>
+ <files>
+        <file type="language" client="site" id="zh-CN">site_zh-CN.zip</file>
+        <file type="language" client="admin" id="zh-CN">admin_zh-CN.zip</file>
+  </files>
+</extension>

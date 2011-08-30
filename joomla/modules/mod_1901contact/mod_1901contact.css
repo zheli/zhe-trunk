@@ -1,0 +1,38 @@
+#formContact p{
+	margin: 0;
+	padding: 0;
+}
+#formContact .invalid {
+	border: 1px solid #FF0000;
+}
+.cformlabel{
+	float:left;
+	width:75px;
+	line-height:23px;
+}
+.cforminput{
+	float:left;
+	width:200px;
+	margin-bottom:6px;
+}
+.cforminput .inputbox{
+	width:200px;
+}
+#contactForm .button{
+	float:right;
+	width:98px;
+	height:24px;
+	border:0px;
+	line-height:24px;
+	font-weight:bold;
+	font-family:verdana,arial;
+	font-size:11px;
+	text-align:center;
+}
+#checkin,#checkout{
+	height:23px;
+	border:0px;
+	padding:0px 5px;
+	line-height:23px;
+	width:70px;
+}
