@@ -48,7 +48,8 @@ def main(input_date = None):
     '2000-01-01'
     >>> main('0/1/1')
     '2000-01-01'
-    >>> main('
+    >>> main('99/1/1')
+    '2099-01-01'
 
     """
     if not input_date:
