@@ -20,6 +20,21 @@ def get_label(input_date = None):
     return numbers
 
 def date_parser(input_year, input_month, input_day):
+    """
+    >>> import datetime
+    >>> date_parser('2011', '1', '1')
+    datetime.date(2011, 1, 1)
+    >>> date_parser('2011', '123', '1')
+    Traceback (most recent call last):
+    Exception: 123 is invalid for month
+    >>> date_parser('2011', '13', '1')
+    Traceback (most recent call last):
+    Exception: 13 is invalid for month
+    >>> date_parser('2011', '9', '31')
+    Traceback (most recent call last):
+    Exception: Invalid day in date 2011/9/31
+"""
+
     if len(input_year)==4:
         year = int(input_year)
     else:
@@ -32,16 +47,16 @@ def date_parser(input_year, input_month, input_day):
     try:
         return datetime.date(year, month, day)
     except:
-        raise Exception('Invalid day maybe %s%s%s' % (input_year, input_month, input_day))
+        raise Exception('Invalid day in date %s/%s/%s' % (input_year, input_month, input_day))
 
 def main(input_date = None):
     """
-    >>> main('1999/1/1')
-    '1999-01-01'
-    >>> main('1999/123/1')
-    'Invalid date'
-    >>> main('1999/13/1')
-    'Invalid date'
+    >>> main('2011/1/1')
+    '2011-01-01'
+    >>> main('2011/123/1')
+    '2011/123/1 is invalid'
+    >>> main('2011/13/1')
+    '2011/13/1 is invalid'
     >>> main('000/1/1')
     '2000-01-01'
     >>> main('00/1/1')
@@ -50,22 +65,47 @@ def main(input_date = None):
     '2000-01-01'
     >>> main('99/1/1')
     '2099-01-01'
+    >>> main('5/1/2')
+    '2001-02-05'
 
     """
+    dates = []
+    earliest_date = None
     if not input_date:
         number_list = get_label()
     else:
         number_list = get_label(input_date)
 
     try:
-        date_1 = date_parser(number_list[0], number_list[1], number_list[2])
+        dates.append(date_parser(number_list[0], number_list[1], number_list[2]))
     except Exception:
-        date_1 = None
+        pass
 
-    if date_1:
-        return date_1.strftime("%Y-%m-%d")
+    try:
+        dates.append(date_parser(number_list[1], number_list[2], number_list[0]))
+    except Exception:
+        pass
+
+    try:
+        dates.append(date_parser(number_list[2], number_list[0], number_list[1]))
+    except Exception:
+        pass
+
+    try:
+        dates.append(date_parser(number_list[2], number_list[1], number_list[0]))
+    except Exception:
+        pass
+
+    if dates:
+        earliest_date = dates[0]
+        for date in dates:
+            if date<earliest_date:
+                earliest_date = date
+
+    if earliest_date:
+        return earliest_date.strftime("%Y-%m-%d")
     else:
-        return 'Invalid date'
+        return '%s is invalid' % input_date
 
 if __name__ == "__main__":
     import doctest
