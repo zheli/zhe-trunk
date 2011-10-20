@@ -1,0 +1,25 @@
+.list-item-name
+{
+    float:left;
+    width:100%;
+    font-size:100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-item-narrative
+{
+    float:left;
+    width:100%;
+    color:#666666;
+    font-size:80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.x-item-selected .list-item-name
+{
+    color:#ffffff;
+}

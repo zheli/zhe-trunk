@@ -101,7 +101,7 @@ def trim(data):
 def main():
     routes = [
         (r'/', main_handler),
-        (r'/auth/', fb_auth)
+        (r'/auth/', fb_auth),
         ]
     application = webapp2.WSGIApplication(routes = routes, debug=True)
     application.run()
