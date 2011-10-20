@@ -1,0 +1,12 @@
+application: auto-reminding
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /(.*\.html)
+  static_files: static/\1
+  upload: static/(.*\.html)
+    
+- url: .*
+  script: main.py
