@@ -2,8 +2,17 @@ var App = new Ext.Application({
     name: 'BeThereApp',
     useLoadmask: true,
     launch: function() {
-        Ext.regModel('StationList', {
-            fields: ['id', 'x', 'y', 'name'],
+        Ext.regModel('Vehicle', {
+            fields: [
+                { name: 'id', type: 'string'},
+                { name: 'number', type: 'string'},
+                { name: 'departure_time', type: 'date'},
+                { name: 'direction', type: 'string'},
+                { name: 'station_name', type: 'string'},
+                { name: 'station_id', type: 'string'},
+                { name: 'x', type: 'float'},
+                { name: 'y', type: 'float'}
+                ]
         });
 
         Ext.regStore('stationListStore', {
