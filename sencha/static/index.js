@@ -49,7 +49,7 @@ var App = new Ext.Application({
             model: 'Bus',
             proxy: {
                 type: 'ajax',
-                url: '/get_buses/',
+                url: 'get_buses/',
                 reader: {
                     type: 'json'
                 }
