@@ -21,13 +21,12 @@ class MainPage(webapp.RequestHandler):
 class get_buses(webapp.RequestHandler):
     def get(self):
         #url = 'https://api.trafiklab.se/samtrafiken/resrobot/StationsInZone.json?key=70ce12e0a6549010b4b38e00848ab8aa&centerX=11.980084&centerY=57.709185&radius=500&coordSys=WGS84&apiVersion=2.1'
-        url = 'https://api.trafiklab.se/samtrafiken/resrobotstops/GetDepartures.json?key=c97a3f0255bfa5f758df1b2d4f0ccdca&apiVersion=2.2&locationId=7425695&coordSys=WGS84'
+        url = 'https://api.trafiklab.se/samtrafiken/resrobotstops/GetDepartures.json?key=c97a3f0255bfa5f758df1b2d4f0ccdca&apiVersion=2.2&locationId=7425695&coordSys=WGS84&timeSpan=30'
         bus_data = urlfetch.fetch(url).content
-        logging.info(bus_data)
         self.response.headers.add_header('content-type', 'application/json', charset='utf-8')
-        #result = dict(buses = transform_bus_list(json.loads(bus_data)))
-        result = transform_bus_list(json.loads(bus_data))
-        self.response.out.write(json.dumps(result, indent=2))
+        result = dict(buses = transform_bus_list(json.loads(bus_data)))
+        #result = transform_bus_list(json.loads(bus_data))
+        self.response.out.write(json.dumps(result))
 
 def transform_bus_list(bus_data):
     bus_list = []
@@ -38,7 +37,7 @@ def transform_bus_list(bus_data):
     if buses:
         for bus in buses:
             bus_list.append(dict(
-                id = bus[u'segmentid'][u'carrier'][u'id'],
+                #id = bus[u'segmentid'][u'carrier'][u'id'],
                 number = bus[u'segmentid'][u'carrier'][u'number'],
                 type = bus[u'segmentid'][u'mot'][u'#text'],
                 departure_time = bus[u'departure'][u'datetime'],
@@ -48,15 +47,13 @@ def transform_bus_list(bus_data):
                 x = bus[u'departure'][u'location'][u'@x'],
                 y = bus[u'departure'][u'location'][u'@y']
                 ))
-            #break
-        logging.info(bus_list)
         return bus_list
     else:
         return None
 
 routes = [
         ('/', MainPage),
-        ('/get_buses/', get_buses)
+        ('/get_buses', get_buses)
         ]
 application = webapp.WSGIApplication(routes, debug=True)
 

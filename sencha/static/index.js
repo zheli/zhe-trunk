@@ -4,7 +4,6 @@ var App = new Ext.Application({
     launch: function() {
         Ext.regModel('Bus', {
             fields: [
-                { name: 'id', type: 'int'},
                 { name: 'number', type: 'int'},
                 { name: 'type', type: 'string'},
                 { name: 'departure_time', type: 'date'},
@@ -14,12 +13,16 @@ var App = new Ext.Application({
                 { name: 'x', type: 'float'},
                 { name: 'y', type: 'float'}
                 ]
+//           belongsTo: { model: 'BusList', name: 'bus_list' },
         });
 
-        var testing_data = {
-                buses : [
+//        Ext.regModel("BusList", {
+//            fields: [
+//                { name: '
+
+        var testing_data = 
+                [
                     {
-                        id : '279',
                         number : '1',
                         type : 'Spårvagn',
                         departure_time : '2011-10-21 14:40',
@@ -30,7 +33,6 @@ var App = new Ext.Application({
                         y : 57.70777
                     },    
                     {
-                        id : '280',
                         number : '6',
                         type : 'Spårvagn',
                         departure_time : '2011-10-21 14:47',
@@ -40,22 +42,24 @@ var App = new Ext.Application({
                         x : 11.985889,
                         y : 57.70777
                     }    
-                ]
-        
-        };
+                ];
 
         Ext.regStore('busListStore', {
             autoLoad: true,
             model: 'Bus',
-            proxy: {
-                type: 'ajax',
-                url: 'get_buses/',
-                reader: {
-                    type: 'json'
-                }
-            },
+//            proxy: {
+//                type: 'memory',
+//                //type: 'ajax',
+//                //method: 'get',
+//                //url: '/get_buses',
+//                //extraParams: {},
+//                reader: {
+//                    type: 'json',
+//                    root: 'buses'
+//                }
+//            },
             //TODO:remove the testing data
-//data: testing_data
+            data: testing_data
         });
 
         
