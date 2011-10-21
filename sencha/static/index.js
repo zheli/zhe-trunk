@@ -2,44 +2,81 @@ var App = new Ext.Application({
     name: 'BeThereApp',
     useLoadmask: true,
     launch: function() {
-        Ext.regModel('Vehicle', {
+        Ext.regModel('Bus', {
             fields: [
-                { name: 'id', type: 'string'},
-                { name: 'number', type: 'string'},
+                { name: 'id', type: 'int'},
+                { name: 'number', type: 'int'},
+                { name: 'type', type: 'string'},
                 { name: 'departure_time', type: 'date'},
                 { name: 'direction', type: 'string'},
                 { name: 'station_name', type: 'string'},
-                { name: 'station_id', type: 'string'},
+                { name: 'station_id', type: 'int'},
                 { name: 'x', type: 'float'},
                 { name: 'y', type: 'float'}
                 ]
         });
 
-        Ext.regStore('stationListStore', {
-            model: 'StationList',
+        var testing_data = {
+                buses : [
+                    {
+                        id : '279',
+                        number : '1',
+                        type : 'Spårvagn',
+                        departure_time : '2011-10-21 14:40',
+                        direction : 'Test',
+                        station_name : 'Test Station',
+                        station_id : 12345,
+                        x : 11.985889,
+                        y : 57.70777
+                    },    
+                    {
+                        id : '280',
+                        number : '6',
+                        type : 'Spårvagn',
+                        departure_time : '2011-10-21 14:47',
+                        direction : 'Test2',
+                        station_name : 'Test Station',
+                        station_id : 12345,
+                        x : 11.985889,
+                        y : 57.70777
+                    }    
+                ]
+        
+        };
+
+        Ext.regStore('busListStore', {
+            autoLoad: true,
+            model: 'Bus',
             proxy: {
-            type: 'localstorage',
-            id: 'bethere-app-localstore'
+                type: 'ajax',
+                url: '/get_buses/',
+                reader: {
+                    type: 'json'
+                }
             },
             //TODO:remove the testing data
-            data: [
-                {id: 7459105, x: 11.980877, y: 57.70769, name:'Barnhusgatan'},
-                {id: 7459478, x: 11.980877, y: 57.70769, name:'Polhemsplatsen'}
-            ]
+//data: testing_data
         });
 
-        BeThereApp.views.stationList = new Ext.List({
-            id: 'stationList',
-            store: 'stationListStore',
-            itemTpl: '<div class="list-item-name">{name}</div>',
+        
+        var current_time = new Date();
+        var one_minute = 1000*60;
+
+        BeThereApp.views.busList = new Ext.List({
+            id: 'busList',
+            store: 'busListStore',
+            itemTpl: new Ext.XTemplate(
+                '<div class="list-item-name">{type} {number} at {station_name} in {[this.timeRemaining(values.departure_time)]}','&nbsp;mins.</div>','<div class="list-item-rarrative">Direction:{direction}</div>',
+                { timeRemaining:function(departure_time) {return (Math.ceil((departure_time.getTime()-current_time.getTime())/one_minute)); }}
+                ),
             onItemDisclosure: function (record) {
             //TODO:do something
             }
         });
 
-        BeThereApp.views.stopListToolbar = new Ext.Toolbar({
-            id: 'stopListToolbar',
-            title: 'Stations Around Me',
+        BeThereApp.views.busListToolbar = new Ext.Toolbar({
+            id: 'busListToolbar',
+            title: 'Bus List',
             layout: 'hbox',
             items: [
                 { xtype: 'spacer' },
@@ -54,19 +91,19 @@ var App = new Ext.Application({
             ]
         });
 
-        BeThereApp.views.stopListContainer = new Ext.Panel({
-            id: 'stopListContainer',
+        BeThereApp.views.busListContainer = new Ext.Panel({
+            id: 'busListContainer',
             layout: 'fit',
-            html: 'This is the stop list container',
-            dockedItems: [BeThereApp.views.stopListToolbar],
-            items: [BeThereApp.views.stationList]
+            html: 'This is the bus list container',
+            dockedItems: [BeThereApp.views.busListToolbar],
+            items: [BeThereApp.views.busList]
         });
 
         BeThereApp.views.viewport = new Ext.Panel({
             fullscreen: true,
             layout: 'card',
             cardAnimation: 'slide',
-            items: [BeThereApp.views.stopListContainer]
+            items: [BeThereApp.views.busListContainer]
         });
     }
 })
