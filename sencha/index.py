@@ -18,36 +18,45 @@ class MainPage(webapp.RequestHandler):
         template_values = {}
         self.response.out.write(template.render(index_page, template_values))
 
-class get_station(webapp.RequestHandler):
+class get_buses(webapp.RequestHandler):
     def get(self):
-        url = 'https://api.trafiklab.se/samtrafiken/resrobot/StationsInZone.json?key=70ce12e0a6549010b4b38e00848ab8aa&centerX=11.980084&centerY=57.709185&radius=500&coordSys=WGS84&apiVersion=2.1'
-        result = urlfetch.fetch(url).content
-        logging.info(result)
+        #url = 'https://api.trafiklab.se/samtrafiken/resrobot/StationsInZone.json?key=70ce12e0a6549010b4b38e00848ab8aa&centerX=11.980084&centerY=57.709185&radius=500&coordSys=WGS84&apiVersion=2.1'
+        url = 'https://api.trafiklab.se/samtrafiken/resrobotstops/GetDepartures.json?key=c97a3f0255bfa5f758df1b2d4f0ccdca&apiVersion=2.2&locationId=7425695&coordSys=WGS84'
+        bus_data = urlfetch.fetch(url).content
+        logging.info(bus_data)
         self.response.headers.add_header('content-type', 'application/json', charset='utf-8')
-        self.response.out.write(json.dumps(trim(json.loads(result)["stationsinzoneresult"]), indent=2))
+        #result = dict(buses = transform_bus_list(json.loads(bus_data)))
+        result = transform_bus_list(json.loads(bus_data))
+        self.response.out.write(json.dumps(result, indent=2))
 
-def trim(data):
-    bus_station = []
+def transform_bus_list(bus_data):
+    bus_list = []
     blacklist = ['rtDate', 'bgColor', 'stroke', 'fgColor', 'JourneyDetailRef', \
         'id', 'date', 'type', 'routeIdx']
     #Remove Train Station
-    for station in data.get(u'location'):
-        if not station.get(u'stationinfo'):
-            bus_station.append(station)
-#    for key in blacklist:
-#        for trip in bus_trip:
-#            if key in trip: 
-#                del trip[key]
-#            if key in trip.get('Origin'):
-#                del trip.get('Origin')[key]
-#            if key in trip.get('Destination'):
-#                del trip.get('Destination')[key]
-
-    return bus_station
+    buses = bus_data.get(u'getdeparturesresult').get(u'departuresegment')
+    if buses:
+        for bus in buses:
+            bus_list.append(dict(
+                id = bus[u'segmentid'][u'carrier'][u'id'],
+                number = bus[u'segmentid'][u'carrier'][u'number'],
+                type = bus[u'segmentid'][u'mot'][u'#text'],
+                departure_time = bus[u'departure'][u'datetime'],
+                direction = bus[u'direction'],
+                station_name = bus[u'departure'][u'location'][u'name'],
+                station_id = bus[u'departure'][u'location'][u'@id'],
+                x = bus[u'departure'][u'location'][u'@x'],
+                y = bus[u'departure'][u'location'][u'@y']
+                ))
+            #break
+        logging.info(bus_list)
+        return bus_list
+    else:
+        return None
 
 routes = [
         ('/', MainPage),
-        ('/get_station/', get_station)
+        ('/get_buses/', get_buses)
         ]
 application = webapp.WSGIApplication(routes, debug=True)
 
