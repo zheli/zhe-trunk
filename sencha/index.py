@@ -54,9 +54,17 @@ def transform_bus_list(bus_data):
     else:
         return None
 
+class form(webapp.RequestHandler):
+    def get(self):
+        page_path = os.path.join(TEMPLATE, 'form.html')
+        template_values = {}
+        self.response.out.write(template.render(page_path, template_values))
+        
+
 routes = [
         ('/', MainPage),
-        ('/get_buses', get_buses)
+        ('/get_buses', get_buses),
+        ('/form/', form),
         ]
 application = webapp.WSGIApplication(routes, debug=True)
 
