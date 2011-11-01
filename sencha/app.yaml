@@ -8,6 +8,8 @@ handlers:
 - url: /resources
   static_dir: static/resources
 
+- url: /static
+  static_dir: static
 
 - url: /(.*\.(js|css|gif|png))
   static_files: static/\1
