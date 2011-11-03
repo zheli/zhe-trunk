@@ -1,19 +1,25 @@
-App.models.User = Ext.regModel('User', {
+App.models.User = Ext.regModel('Item', {
     fields: [
         {
-            name: 'id',
-            type: 'int'
-        }, {
-            name: 'itme_title',
+            name: 'item_title',
             type: 'string',
         }, {
-            name: 'name',
+            name: 'item_price',
+            type: 'float',
+        }, {
+            name: 'lat',
+            type: 'float',
+        }, {
+            name: 'lon',
+            type: 'float',
+        }, {
+            name: 'currency',
+            type: 'int',
+        }, {
+            name: 'image_url',
             type: 'string'
         }, {
-            name: 'email',
-            type: 'string'
-        }, {
-            name: 'phone',
+            name: 'thumbnail_url',
             type: 'string'
         }
     ],
@@ -21,12 +27,7 @@ App.models.User = Ext.regModel('User', {
     validations: [
         {
             type: 'presence',
-            name: 'name'
-        }, {
-            type: 'format',
-            name: 'email',
-            matcher: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-            message: 'must be a valid email'
+            name: 'item_title'
         }
     ],
 

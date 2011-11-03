@@ -2,7 +2,7 @@ Ext.regController('Users', {
     store: App.stores.users,
 
     index: function() {
-        App.views.viewport.reveal('usersList');
+        App.views.viewport.reveal('usersForm');
     },
 
     newForm: function() {

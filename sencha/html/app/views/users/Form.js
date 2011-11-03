@@ -43,12 +43,12 @@ App.views.UsersForm = Ext.extend(Ext.form.FormPanel, {
         fields = {
             xtype: 'fieldset',
             id: 'userFormFieldset',
-            title: 'User details',
+            title: 'Item details',
             instructions: this.defaultInstructions,
             defaults: {
                 xtype: 'textfield',
                 labelAlign: 'left',
-                labelWidth: '40%',
+                labelWidth: '20%',
                 required: false,
                 useClearIcon: true,
                 autoCapitalize : false
@@ -64,22 +64,22 @@ App.views.UsersForm = Ext.extend(Ext.form.FormPanel, {
                     fieldname: 'item_title',
                 },
                 {
-                    name : 'name',
-                    label: 'name',
+                    name : 'item_price',
+                    label: 'Price',
                     autoCapitalize : true
                 },
                 {
                     xtype: 'App.views.ErrorField',
-                    fieldname: 'name',
+                    fieldname: 'item_price',
                 },
                 {
-                    name: 'email',
-                    label: 'email',
-                    xtype: 'emailfield',
+                    name: 'lat',
+                    label: 'Latitude',
+                    xtype: 'numberfield',
                 },
                 {
                     xtype: 'App.views.ErrorField',
-                    fieldname: 'email',
+                    fieldname: 'lat',
                 },
                 {
                     name: 'phone',
