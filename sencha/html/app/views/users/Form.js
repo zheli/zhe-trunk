@@ -75,20 +75,38 @@ App.views.UsersForm = Ext.extend(Ext.form.FormPanel, {
                 {
                     name: 'lat',
                     label: 'Latitude',
-                    xtype: 'numberfield',
+                    xtype: 'field',
                 },
                 {
                     xtype: 'App.views.ErrorField',
                     fieldname: 'lat',
                 },
                 {
-                    name: 'phone',
-                    label: 'phone',
-                    xtype: 'numberfield',
+                    name: 'lon',
+                    label: 'Longitude',
+                    xtype: 'field',
                 },
                 {
                     xtype: 'App.views.ErrorField',
-                    fieldname: 'phone',
+                    fieldname: 'lon',
+                },
+                {
+                    name: 'image_url',
+                    label: 'Image',
+                    xtype: 'field',
+                },
+                {
+                    xtype: 'App.views.ErrorField',
+                    fieldname: 'image_url',
+                },
+                {
+                    name: 'thumbnail_url',
+                    label: 'Thumbnail',
+                    xtype: 'field',
+                },
+                {
+                    xtype: 'App.views.ErrorField',
+                    fieldname: 'thumbnail_url',
                 },
             ]
         };
