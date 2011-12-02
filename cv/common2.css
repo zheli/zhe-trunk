@@ -72,7 +72,7 @@ aside, nav, article, figure {
 }
 
 #main_header nav {
-    background: #990000;
+    background: #006600;/*#990000;*/
     font-size: 1.15em;
     height: 40px;
     line-height: 30px;
@@ -95,7 +95,7 @@ aside, nav, article, figure {
 }
 #main_header nav a:hover, #main_header nav a:active,
 #main_header nav .active a:link, #main_header nav .active a:visited {
-    background: #ff0000;
+    background: #00CC00;/*#ff0000;*/
     color: #fff;
     text-shadow: none !important;
 	border-radius: 5px;
