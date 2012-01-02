@@ -3,3 +3,4 @@ syntax: glob
 127*
 *.swp
 *.bak
+.DS_Store
