@@ -6,7 +6,6 @@ except ImportError:
     pass
 
 from appuifw import *
-import socket
 import os, inspect
 import e32
 import struct
@@ -593,7 +592,7 @@ def register_openers():
 
 ip = '192.168.0.35'
 new_line = u'\u2029'
-
+    
 class Daemon(object):
     def __init__(self):
         self.lock = e32.Ao_lock()
@@ -606,7 +605,7 @@ class Daemon(object):
         self.body = Text()
         app.body = self.body
         self.lock = e32.Ao_lock()
-
+        
     def sel_access_point(self):
         """ Select and set the default access point.
         Return the access point object if the selection was done or None if not
@@ -615,7 +614,7 @@ class Daemon(object):
         if not aps:
             note(u"No access points available","error")
             return None
- 
+
         ap_labels = map(lambda x: x['name'], aps)
         item = popup_menu(ap_labels,u"Access points:")
         if item is None:
@@ -661,7 +660,10 @@ class Daemon(object):
         while True:
             (cs, addr) = s.accept()
             self.body.add(u'Connect to %s:%d' % (addr[0], addr[1]) + new_line)
-            self.get_signal(cs, addr)
+            try:
+                self.get_signal(cs, addr)
+            except:
+                pass
 
     def about(self):
         note(u'This is about', 'info')
@@ -696,21 +698,21 @@ def take_photo():
     logging.debug(picture_path)
     img.save(picture_path, quality=100)
     logging.info("Photo took!")
-    try:
-        upload_picture()
-    except urllib2.TypeError:
-        pass
+    upload_picture()
     logging.info('Photo uploaded!')
 
 def upload_picture():
+    logging.info('Uploading Photo...')
     register_openers()
     url = 'http://192.168.0.34/api/'
+    f = open(os.path.join(ROOT_PATH, 'picture.jpg'), 'rb')
     datagen, headers = multipart_encode({
-                'file':open(os.path.join(ROOT_PATH, 'picture.jpg'), 'rb')
+                'file': f
             })
     request = urllib2.Request(url, datagen, headers)
     result = urllib2.urlopen(request)
-    print(result.read())
+    logging.info(result.read())
+    f.close()
 
 def quit(self):
     logging.info('App exited')
@@ -719,8 +721,4 @@ def quit(self):
 
 if __name__ == "__main__":
     app = Daemon()
-    try:
-        app.run()
-    except:
-        logging.error('Some errors, exit...')
-        pass
+    app.run()
