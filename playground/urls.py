@@ -7,8 +7,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'playground.views.home', name='home'),
-    url(r'^$', include('playground.data_log.urls')),
+    #url(r'^$', include('playground.data_log.urls')),
+    url(r'^cam/', include('playground.cam_srv.urls')),
     url(r'^api/', include('playground.api.urls')),
+    url(r'accounts/login/$', 'django.contrib.auth.views.login'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
