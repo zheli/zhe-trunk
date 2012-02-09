@@ -1,13 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 from cam_srv.forms import UploadFileForm
 import logging
 
 # Create your views here.
+@login_required
 def index(request):
     logging.debug('This is index')
-    template = 'index.html'
+    template = 'cam/index.html'
     values = {}
     return render_to_response(template, values)
 
